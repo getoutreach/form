@@ -111,7 +111,7 @@ func parseTags(tags string) map[string]string {
 	split := strings.Split(tags, ";")
 	ret := make(map[string]string, len(split))
 	for _, tag := range split {
-		kv := strings.Split(tag, "=")
+		kv := strings.SplitN(tag, "=", 2)
 		if len(kv) < 2 {
 			if kv[0] == "-" {
 				return map[string]string{

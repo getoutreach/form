@@ -172,6 +172,31 @@ func Test_fields(t *testing.T) {
 				},
 			},
 		}, {
+			name: "footer with =",
+			arg: struct {
+				Name     string `form:"label=Full Name;id=name"`
+				Password string `form:"footer=Something with =;type=password"`
+			}{
+				Name: "Michael Scott",
+			},
+			want: []field{
+				{
+					Name:        "Name",
+					Label:       "Full Name",
+					Placeholder: "Full Name",
+					Type:        "text",
+					Value:       "Michael Scott",
+					ID:          "name",
+				}, {
+					Name:        "Password",
+					Label:       "Password",
+					Placeholder: "Password",
+					Type:        "password",
+					Value:       "",
+					Footer:      template.HTML("Something with ="),
+				},
+			},
+		}, {
 			name: "nested with nil ptr",
 			arg: struct {
 				Name    string
